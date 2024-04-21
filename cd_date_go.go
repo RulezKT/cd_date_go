@@ -16,11 +16,6 @@ import (
 //https://www.aavso.org/jd-calculator
 //http://www.onlineconversion.com/julian_date.htm
 
-const (
-	JD2000       float64 = 2451545.0 //12:00 UT on January 1, 2000
-	SEC_IN_1_DAY int     = 86400
-)
-
 func GregToSecFromJD2000(gregDate GregDate) int64 {
 
 	//JDN = (1461 × (Y + 4800 + (M − 14)/12))/4 +(367 × (M − 2 − 12 × ((M − 14)/12)))/12 − (3 × ((Y + 4900 + (M - 14)/12)/100))/4 + D − 32075
