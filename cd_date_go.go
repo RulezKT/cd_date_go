@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/RulezKT/cd_consts_go"
+	. "github.com/RulezKT/cd_consts_go"
 )
 
 // максимальная и минимальные даты в файле, измеряется в секундах от J2000
@@ -20,62 +20,6 @@ const (
 	JD2000       float64 = 2451545.0 //12:00 UT on January 1, 2000
 	SEC_IN_1_DAY int     = 86400
 )
-
-// simple Date structure
-type GregDate struct {
-	Year    int `json:"year"`
-	Month   int `json:"month"`
-	Day     int `json:"day"`
-	Hour    int `json:"hour"`
-	Minutes int `json:"minutes"`
-	Seconds int `json:"seconds"`
-}
-
-func (gd GregDate) String() string {
-
-	var monthsFormatted string
-	if gd.Month > 9 {
-		monthsFormatted = "" + fmt.Sprint(gd.Month)
-
-	} else {
-		monthsFormatted = "0" + fmt.Sprint(gd.Month)
-	}
-
-	var daysFormatted string
-	if gd.Day > 9 {
-		daysFormatted = "" + fmt.Sprint(gd.Day)
-
-	} else {
-		daysFormatted = "0" + fmt.Sprint(gd.Day)
-	}
-
-	var hoursFormatted string
-	if gd.Hour > 9 {
-		hoursFormatted = "" + fmt.Sprint(gd.Hour)
-
-	} else {
-		hoursFormatted = "0" + fmt.Sprint(gd.Hour)
-	}
-
-	var minutesFormatted string
-	if gd.Minutes > 9 {
-		minutesFormatted = "" + fmt.Sprint(gd.Minutes)
-
-	} else {
-		minutesFormatted = "0" + fmt.Sprint(gd.Minutes)
-	}
-
-	var secondsFormatted string
-	if gd.Seconds > 9 {
-		secondsFormatted = "" + fmt.Sprint(gd.Seconds)
-
-	} else {
-		secondsFormatted = "0" + fmt.Sprint(gd.Seconds)
-	}
-
-	return "Date:  " + daysFormatted + "." + monthsFormatted + "." + fmt.Sprint(gd.Year) +
-		"  Time: " + hoursFormatted + ":" + minutesFormatted + ":" + secondsFormatted
-}
 
 func GregToSecFromJD2000(gregDate GregDate) int64 {
 
@@ -403,7 +347,7 @@ func calculate_delta_t(year int) float64 {
 
 }
 
-func DeltaT(year int, bsp cd_consts_go.BspFile) float64 {
+func DeltaT(year int, bsp BspFile) float64 {
 
 	if year < bsp.DeltaTTable.FirstYear || year > bsp.DeltaTTable.LastYear {
 		return calculate_delta_t(year)
@@ -412,10 +356,10 @@ func DeltaT(year int, bsp cd_consts_go.BspFile) float64 {
 	return bsp.DeltaTTable.Table[year-bsp.DeltaTTable.FirstYear].Seconds
 }
 
-func DeltaTPtr() *cd_consts_go.DeltaTTable {
+func DeltaTPtr() *DeltaTTable {
 
-	var dt cd_consts_go.DeltaTTable
-	dt.Table = []cd_consts_go.DeltaTTableStructure{
+	var dt DeltaTTable
+	dt.Table = []DeltaTTableStructure{
 		{Year: 1620, Seconds: 124},
 
 		{1621, 119}, {1622, 115}, {1623, 110}, {1624, 106},
