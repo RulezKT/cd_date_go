@@ -66,7 +66,7 @@ func SecFromJd2000ToGreg(date_in_seconds int64) GregDate {
 	//например WorkWithTime.sec_from_jd2000_to_gregdate((long)20514081599.00);
 	//DD.MM.YYYY: '24.1.2650
 	//'HH.MM.Sec: '23.59.10
-	// а должно быть  2650.1.25, 00:00
+	// а должно быть  2650.1.25, 00:00git status
 
 	//получаем Julian Day
 	jdn := float64(JD2000 + float64(date_in_seconds)/float64(SEC_IN_1_DAY))
