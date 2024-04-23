@@ -342,145 +342,179 @@ func calculate_delta_t(year int) float64 {
 
 }
 
-func DeltaT(year int, bsp BspFile) float64 {
+func DeltaT(year int) float64 {
 
-	if year < bsp.DeltaTTable.FirstYear || year > bsp.DeltaTTable.LastYear {
+	first_year := DeltaTable[0].Year
+	last_year := DeltaTable[len(DeltaTable)-1].Year
+	// fmt.Println("first_year", first_year)
+	// fmt.Println("last_year", last_year)
+
+	if year < first_year || year > last_year {
 		return calculate_delta_t(year)
 	}
 
-	return bsp.DeltaTTable.Table[year-bsp.DeltaTTable.FirstYear].Seconds
+	// if year < bsp.DeltaTTable.FirstYear || year > bsp.DeltaTTable.LastYear {
+	// 	return calculate_delta_t(year)
+	// }
+
+	return DeltaTable[year-first_year].Seconds
 }
 
-func DeltaTPtr() *DeltaTTable {
+var DeltaTable = []DeltaTTableStructure{
 
-	var dt DeltaTTable
-	dt.Table = []DeltaTTableStructure{
-		{Year: 1620, Seconds: 124},
+	{Year: 1950, Seconds: 29.15}, {Year: 1951, Seconds: 29.57}, {Year: 1952, Seconds: 29.97}, {Year: 1953, Seconds: 30.36}, {Year: 1954, Seconds: 30.72},
+	{Year: 1955, Seconds: 31.07}, {Year: 1956, Seconds: 31.35}, {Year: 1957, Seconds: 31.68}, {Year: 1958, Seconds: 32.18}, {Year: 1959, Seconds: 32.68},
 
-		{1621, 119}, {1622, 115}, {1623, 110}, {1624, 106},
-		{1625, 102}, {1626, 98}, {1627, 95}, {1628, 91}, {1629, 88},
+	{Year: 1960, Seconds: 33.15}, {Year: 1961, Seconds: 33.59}, {Year: 1962, Seconds: 34.00}, {Year: 1963, Seconds: 34.47}, {Year: 1964, Seconds: 35.03},
+	{Year: 1965, Seconds: 35.73}, {Year: 1966, Seconds: 36.54}, {Year: 1967, Seconds: 37.43}, {Year: 1968, Seconds: 38.29}, {Year: 1969, Seconds: 39.20},
 
-		{1630, 85}, {1631, 82}, {1632, 79}, {1633, 77}, {1634, 74},
-		{1635, 72}, {1636, 70}, {1637, 67}, {1638, 65}, {1639, 63},
+	{Year: 1970, Seconds: 40.18}, {Year: 1971, Seconds: 41.17}, {Year: 1972, Seconds: 42.23}, {Year: 1973, Seconds: 43.37}, {Year: 1974, Seconds: 44.49},
+	{Year: 1975, Seconds: 45.48}, {Year: 1976, Seconds: 46.46}, {Year: 1977, Seconds: 47.52}, {Year: 1978, Seconds: 48.53}, {Year: 1979, Seconds: 49.59},
 
-		{1640, 62}, {1641, 60}, {1642, 58}, {1643, 57}, {1644, 55},
-		{1645, 54}, {1646, 53}, {1647, 51}, {1648, 50}, {1649, 49},
+	{Year: 1980, Seconds: 50.54}, {Year: 1981, Seconds: 51.38}, {Year: 1982, Seconds: 52.17}, {Year: 1983, Seconds: 52.96}, {Year: 1984, Seconds: 53.79},
+	{Year: 1985, Seconds: 54.34}, {Year: 1986, Seconds: 54.87}, {Year: 1987, Seconds: 55.32}, {Year: 1988, Seconds: 55.82}, {Year: 1989, Seconds: 56.30},
 
-		{1650, 48}, {1651, 47}, {1652, 46}, {1653, 45}, {1654, 44},
-		{1655, 43}, {1656, 42}, {1657, 41}, {1658, 40}, {1659, 38},
+	{Year: 1990, Seconds: 56.86}, {Year: 1991, Seconds: 57.57}, {Year: 1992, Seconds: 58.31}, {Year: 1993, Seconds: 59.12}, {Year: 1994, Seconds: 59.99},
+	{Year: 1995, Seconds: 60.78}, {Year: 1996, Seconds: 61.63}, {Year: 1997, Seconds: 62.30}, {Year: 1998, Seconds: 62.97}, {Year: 1999, Seconds: 63.47},
 
-		{1660, 37}, {1661, 36}, {1662, 35}, {1663, 34}, {1664, 33},
-		{1665, 32}, {1666, 31}, {1667, 30}, {1668, 28}, {1669, 27},
+	{Year: 2000, Seconds: 63.83}, {Year: 2001, Seconds: 64.09}, {Year: 2002, Seconds: 64.30}, {Year: 2003, Seconds: 64.47}, {Year: 2004, Seconds: 64.57},
+	{Year: 2005, Seconds: 64.69}, {Year: 2006, Seconds: 64.85}, {Year: 2007, Seconds: 65.15}, {Year: 2008, Seconds: 65.46}, {Year: 2009, Seconds: 65.78},
 
-		{1670, 26}, {1671, 25}, {1672, 24}, {1673, 23}, {1674, 22},
-		{1675, 21}, {1676, 20}, {1677, 19}, {1678, 18}, {1679, 17},
-
-		{1680, 16}, {1681, 15}, {1682, 14}, {1683, 14}, {1684, 13},
-		{1685, 12}, {1686, 12}, {1687, 11}, {1688, 11}, {1689, 10},
-
-		{1690, 10}, {1691, 10}, {1692, 9}, {1693, 9}, {1694, 9},
-		{1695, 9}, {1696, 9}, {1697, 9}, {1698, 9}, {1699, 9},
-
-		{1700, 9}, {1701, 9}, {1702, 9}, {1703, 9}, {1704, 9},
-		{1705, 9}, {1706, 9}, {1707, 9}, {1708, 10}, {1709, 10},
-
-		{1710, 10}, {1711, 10}, {1712, 10}, {1713, 10}, {1714, 10},
-		{1715, 10}, {1716, 10}, {1717, 11}, {1718, 11}, {1719, 11},
-
-		{1720, 11}, {1721, 11}, {1722, 11}, {1723, 11}, {1724, 11},
-		{1725, 11}, {1726, 11}, {1727, 11}, {1728, 11}, {1729, 11},
-
-		{1730, 11}, {1731, 11}, {1732, 11}, {1733, 11}, {1734, 12},
-		{1735, 12}, {1736, 12}, {1737, 12}, {1738, 12}, {1739, 12},
-
-		{1740, 12}, {1741, 12}, {1742, 12}, {1743, 12}, {1744, 13},
-		{1745, 13}, {1746, 13}, {1747, 13}, {1748, 13}, {1749, 13},
-
-		{1750, 13}, {1751, 14}, {1752, 14}, {1753, 14}, {1754, 14},
-		{1755, 14}, {1756, 14}, {1757, 14}, {1758, 15}, {1759, 15},
-
-		{1760, 15}, {1761, 15}, {1762, 15}, {1763, 15}, {1764, 15},
-		{1765, 16}, {1766, 16}, {1767, 16}, {1768, 16}, {1769, 16},
-
-		{1770, 16}, {1771, 16}, {1772, 16}, {1773, 16}, {1774, 16},
-		{1775, 17}, {1776, 17}, {1777, 17}, {1778, 17}, {1779, 17},
-
-		{1780, 17}, {1781, 17}, {1782, 17}, {1783, 17}, {1784, 17},
-		{1785, 17}, {1786, 17}, {1787, 17}, {1788, 17}, {1789, 17},
-
-		{1790, 17}, {1791, 17}, {1792, 16}, {1793, 16}, {1794, 16},
-		{1795, 16}, {1796, 15}, {1797, 15}, {1798, 14}, {1799, 14},
-
-		{1800, 13.7}, {1801, 13.4}, {1802, 13.1}, {1803, 12.9}, {1804, 12.7},
-		{1805, 12.6}, {1806, 12.5}, {1807, 12.5}, {1808, 12.5}, {1809, 12.5},
-
-		{1810, 12.5}, {1811, 12.5}, {1812, 12.5}, {1813, 12.5}, {1814, 12.5},
-		{1815, 12.5}, {1816, 12.5}, {1817, 12.4}, {1818, 12.3}, {1819, 12.3},
-
-		{1820, 12.0}, {1821, 11.7}, {1822, 11.4}, {1823, 11.1}, {1824, 10.6},
-		{1825, 10.2}, {1826, 9.6}, {1827, 9.1}, {1828, 8.6}, {1829, 8.0},
-
-		{1830, 7.5}, {1831, 7.0}, {1832, 6.6}, {1833, 6.3}, {1834, 6.0},
-		{1835, 5.8}, {1836, 5.7}, {1837, 5.6}, {1838, 5.6}, {1839, 5.6},
-
-		{1840, 5.7}, {1841, 5.8}, {1842, 5.9}, {1843, 6.1}, {1844, 6.2},
-		{1845, 6.3}, {1846, 6.5}, {1847, 6.6}, {1848, 6.8}, {1849, 6.9},
-
-		{1850, 7.1}, {1851, 7.2}, {1852, 7.3}, {1853, 7.4}, {1854, 7.5},
-		{1855, 7.6}, {1856, 7.7}, {1857, 7.7}, {1858, 7.8}, {1859, 7.8},
-
-		{1860, 7.88}, {1861, 7.82}, {1862, 7.54}, {1863, 6.97}, {1864, 6.40},
-		{1865, 6.02}, {1866, 5.41}, {1867, 4.10}, {1868, 2.92}, {1869, 1.82},
-
-		{1870, 1.61}, {1871, 0.10}, {1872, -1.02}, {1873, -1.28}, {1874, -2.69},
-		{1875, -3.24}, {1876, -3.64}, {1877, -4.54}, {1878, -4.71}, {1879, -5.1},
-
-		{1880, -5.40}, {1881, -5.42}, {1882, -5.20}, {1883, -5.46}, {1884, -5.46},
-		{1885, -5.79}, {1886, -5.63}, {1887, -5.64}, {1888, -5.80}, {1889, -5.66},
-
-		{1890, -5.87}, {1891, -6.01}, {1892, -6.19}, {1893, -6.64}, {1894, -6.44},
-		{1895, -6.47}, {1896, -6.09}, {1897, -5.76}, {1898, -4.66}, {1899, -3.74},
-
-		{1900, -2.72}, {1901, -1.54}, {1902, -0.02}, {1903, 1.24}, {1904, 2.64},
-		{1905, 3.86}, {1906, 5.37}, {1907, 6.14}, {1908, 7.75}, {1909, 9.13},
-
-		{1910, 10.46}, {1911, 11.53}, {1912, 13.36}, {1913, 14.65}, {1914, 16.01},
-		{1915, 17.20}, {1916, 18.24}, {1917, 19.06}, {1918, 20.25}, {1919, 20.95},
-
-		{1920, 21.16}, {1921, 22.25}, {1922, 22.41}, {1923, 23.03}, {1924, 23.49},
-		{1925, 23.69}, {1926, 23.86}, {1927, 24.49}, {1928, 24.34}, {1929, 24.08},
-
-		{1930, 24.02}, {1931, 24.00}, {1932, 23.87}, {1933, 23.95}, {1934, 23.86},
-		{1935, 23.93}, {1936, 23.73}, {1937, 23.92}, {1938, 23.96}, {1939, 24.02},
-
-		{1940, 24.33}, {1941, 24.83}, {1942, 25.30}, {1943, 25.70}, {1944, 26.24},
-		{1945, 26.77}, {1946, 27.28}, {1947, 27.78}, {1948, 28.25}, {1949, 28.71},
-
-		{1950, 29.15}, {1951, 29.57}, {1952, 29.97}, {1953, 30.36}, {1954, 30.72},
-		{1955, 31.07}, {1956, 31.35}, {1957, 31.68}, {1958, 32.18}, {1959, 32.68},
-
-		{1960, 33.15}, {1961, 33.59}, {1962, 34.00}, {1963, 34.47}, {1964, 35.03},
-		{1965, 35.73}, {1966, 36.54}, {1967, 37.43}, {1968, 38.29}, {1969, 39.20},
-
-		{1970, 40.18}, {1971, 41.17}, {1972, 42.23}, {1973, 43.37}, {1974, 44.49},
-		{1975, 45.48}, {1976, 46.46}, {1977, 47.52}, {1978, 48.53}, {1979, 49.59},
-
-		{1980, 50.54}, {1981, 51.38}, {1982, 52.17}, {1983, 52.96}, {1984, 53.79},
-		{1985, 54.34}, {1986, 54.87}, {1987, 55.32}, {1988, 55.82}, {1989, 56.30},
-
-		{1990, 56.86}, {1991, 57.57}, {1992, 58.31}, {1993, 59.12}, {1994, 59.99},
-		{1995, 60.78}, {1996, 61.63}, {1997, 62.30}, {1998, 62.97}, {1999, 63.47},
-
-		{2000, 63.83}, {2001, 64.09}, {2002, 64.30}, {2003, 64.47}, {2004, 64.57},
-		{2005, 64.69}, {2006, 64.85}, {2007, 65.15}, {2008, 65.46}, {2009, 65.78},
-
-		{2010, 66.07}, {2011, 66.32}, {2012, 66.60}, {2013, 66.91}, {2014, 67.28},
-		{2015, 67.18}, {2016, 68.18}, {2017, 69.18}, {2018, 69.18}, {2019, 69.18},
-		{2020, 69.18},
-	}
-
-	dt.FirstYear = dt.Table[0].Year
-	dt.LastYear = dt.Table[len(dt.Table)-1].Year
-	return &dt
-
+	{Year: 2010, Seconds: 66.07}, {Year: 2011, Seconds: 66.32}, {Year: 2012, Seconds: 66.60}, {Year: 2013, Seconds: 66.91}, {Year: 2014, Seconds: 67.28},
+	{Year: 2015, Seconds: 67.18}, {Year: 2016, Seconds: 68.18}, {Year: 2017, Seconds: 69.18}, {Year: 2018, Seconds: 69.18}, {Year: 2019, Seconds: 69.18},
+	{Year: 2020, Seconds: 69.18},
 }
+
+// func DeltaTPtr() *DeltaTTable {
+
+// 	var dt DeltaTTable
+// 	dt.Table = []DeltaTTableStructure{
+// 		{Year: 1620, Seconds: 124},
+
+// 		{Year: 1621, Seconds: 119}, {Year: 1622, Seconds: 115}, {Year: 1623, Seconds: 110}, {Year: 1624, Seconds: 106},
+// 		{Year: 1625, Seconds: 102}, {Year: 1626, Seconds: 98}, {Year: 1627, Seconds: 95}, {Year: 1628, Seconds: 91}, {Year: 1629, Seconds: 88},
+
+// 		{Year: 1630, Seconds: 85}, {Year: 1631, Seconds: 82}, {Year: 1632, Seconds: 79}, {Year: 1633, Seconds: 77}, {Year: 1634, Seconds: 74},
+// 		{Year: 1635, Seconds: 72}, {Year: 1636, Seconds: 70}, {Year: 1637, Seconds: 67}, {Year: 1638, Seconds: 65}, {Year: 1639, Seconds: 63},
+
+// 		{Year: 1640, Seconds: 62}, {Year: 1641, Seconds: 60}, {Year: 1642, Seconds: 58}, {Year: 1643, Seconds: 57}, {Year: 1644, Seconds: 55},
+// 		{Year: 1645, Seconds: 54}, {Year: 1646, Seconds: 53}, {Year: 1647, Seconds: 51}, {Year: 1648, Seconds: 50}, {Year: 1649, Seconds: 49},
+
+// 		{Year: 1650, Seconds: 48}, {Year: 1651, Seconds: 47}, {Year: 1652, Seconds: 46}, {Year: 1653, Seconds: 45}, {Year: 1654, Seconds: 44},
+// 		{Year: 1655, Seconds: 43}, {Year: 1656, Seconds: 42}, {Year: 1657, Seconds: 41}, {Year: 1658, Seconds: 40}, {Year: 1659, Seconds: 38},
+
+// 		{Year: 1660, Seconds: 37}, {Year: 1661, Seconds: 36}, {Year: 1662, Seconds: 35}, {Year: 1663, Seconds: 34}, {Year: 1664, Seconds: 33},
+// 		{Year: 1665, Seconds: 32}, {Year: 1666, Seconds: 31}, {Year: 1667, Seconds: 30}, {Year: 1668, Seconds: 28}, {Year: 1669, Seconds: 27},
+
+// 		{Year: 1670, Seconds: 26}, {Year: 1671, Seconds: 25}, {Year: 1672, Seconds: 24}, {Year: 1673, Seconds: 23}, {Year: 1674, Seconds: 22},
+// 		{Year: 1675, Seconds: 21}, {Year: 1676, Seconds: 20}, {Year: 1677, Seconds: 19}, {Year: 1678, Seconds: 18}, {Year: 1679, Seconds: 17},
+
+// 		{Year: 1680, Seconds: 16}, {Year: 1681, Seconds: 15}, {Year: 1682, Seconds: 14}, {Year: 1683, Seconds: 14}, {Year: 1684, Seconds: 13},
+// 		{Year: 1685, Seconds: 12}, {Year: 1686, Seconds: 12}, {Year: 1687, Seconds: 11}, {Year: 1688, Seconds: 11}, {Year: 1689, Seconds: 10},
+
+// 		{Year: 1690, Seconds: 10}, {Year: 1691, Seconds: 10}, {Year: 1692, Seconds: 9}, {Year: 1693, Seconds: 9}, {Year: 1694, Seconds: 9},
+// 		{Year: 1695, Seconds: 9}, {Year: 1696, Seconds: 9}, {Year: 1697, Seconds: 9}, {Year: 1698, Seconds: 9}, {Year: 1699, Seconds: 9},
+
+// 		{Year: 1700, Seconds: 9}, {Year: 1701, Seconds: 9}, {Year: 1702, Seconds: 9}, {Year: 1703, Seconds: 9}, {Year: 1704, Seconds: 9},
+// 		{Year: 1705, Seconds: 9}, {Year: 1706, Seconds: 9}, {Year: 1707, Seconds: 9}, {Year: 1708, Seconds: 10}, {Year: 1709, Seconds: 10},
+
+// 		{Year: 1710, Seconds: 10}, {Year: 1711, Seconds: 10}, {Year: 1712, Seconds: 10}, {Year: 1713, Seconds: 10}, {Year: 1714, Seconds: 10},
+// 		{Year: 1715, Seconds: 10}, {Year: 1716, Seconds: 10}, {Year: 1717, Seconds: 11}, {Year: 1718, Seconds: 11}, {Year: 1719, Seconds: 11},
+
+// 		{Year: 1720, Seconds: 11}, {Year: 1721, Seconds: 11}, {Year: 1722, Seconds: 11}, {Year: 1723, Seconds: 11}, {Year: 1724, Seconds: 11},
+// 		{Year: 1725, Seconds: 11}, {Year: 1726, Seconds: 11}, {Year: 1727, Seconds: 11}, {Year: 1728, Seconds: 11}, {Year: 1729, Seconds: 11},
+
+// 		{Year: 1730, Seconds: 11}, {Year: 1731, Seconds: 11}, {Year: 1732, Seconds: 11}, {Year: 1733, Seconds: 11}, {Year: 1734, Seconds: 12},
+// 		{Year: 1735, Seconds: 12}, {Year: 1736, Seconds: 12}, {Year: 1737, Seconds: 12}, {Year: 1738, Seconds: 12}, {Year: 1739, Seconds: 12},
+
+// 		{Year: 1740, Seconds: 12}, {Year: 1741, Seconds: 12}, {Year: 1742, Seconds: 12}, {Year: 1743, Seconds: 12}, {Year: 1744, Seconds: 13},
+// 		{Year: 1745, Seconds: 13}, {Year: 1746, Seconds: 13}, {Year: 1747, Seconds: 13}, {Year: 1748, Seconds: 13}, {Year: 1749, Seconds: 13},
+
+// 		{Year: 1750, Seconds: 13}, {Year: 1751, Seconds: 14}, {Year: 1752, Seconds: 14}, {Year: 1753, Seconds: 14}, {Year: 1754, Seconds: 14},
+// 		{Year: 1755, Seconds: 14}, {Year: 1756, Seconds: 14}, {Year: 1757, Seconds: 14}, {Year: 1758, Seconds: 15}, {Year: 1759, Seconds: 15},
+
+// 		{Year: 1760, Seconds: 15}, {Year: 1761, Seconds: 15}, {Year: 1762, Seconds: 15}, {Year: 1763, Seconds: 15}, {Year: 1764, Seconds: 15},
+// 		{Year: 1765, Seconds: 16}, {Year: 1766, Seconds: 16}, {Year: 1767, Seconds: 16}, {Year: 1768, Seconds: 16}, {Year: 1769, Seconds: 16},
+
+// 		{Year: 1770, Seconds: 16}, {Year: 1771, Seconds: 16}, {Year: 1772, Seconds: 16}, {Year: 1773, Seconds: 16}, {Year: 1774, Seconds: 16},
+// 		{Year: 1775, Seconds: 17}, {Year: 1776, Seconds: 17}, {Year: 1777, Seconds: 17}, {Year: 1778, Seconds: 17}, {Year: 1779, Seconds: 17},
+
+// 		{Year: 1780, Seconds: 17}, {Year: 1781, Seconds: 17}, {Year: 1782, Seconds: 17}, {Year: 1783, Seconds: 17}, {Year: 1784, Seconds: 17},
+// 		{Year: 1785, Seconds: 17}, {Year: 1786, Seconds: 17}, {Year: 1787, Seconds: 17}, {Year: 1788, Seconds: 17}, {Year: 1789, Seconds: 17},
+
+// 		{Year: 1790, Seconds: 17}, {Year: 1791, Seconds: 17}, {Year: 1792, Seconds: 16}, {Year: 1793, Seconds: 16}, {Year: 1794, Seconds: 16},
+// 		{Year: 1795, Seconds: 16}, {Year: 1796, Seconds: 15}, {Year: 1797, Seconds: 15}, {Year: 1798, Seconds: 14}, {Year: 1799, Seconds: 14},
+
+// 		{Year: 1800, Seconds: 13.7}, {Year: 1801, Seconds: 13.4}, {Year: 1802, Seconds: 13.1}, {Year: 1803, Seconds: 12.9}, {Year: 1804, Seconds: 12.7},
+// 		{Year: 1805, Seconds: 12.6}, {Year: 1806, Seconds: 12.5}, {Year: 1807, Seconds: 12.5}, {Year: 1808, Seconds: 12.5}, {Year: 1809, Seconds: 12.5},
+
+// 		{Year: 1810, Seconds: 12.5}, {Year: 1811, Seconds: 12.5}, {Year: 1812, Seconds: 12.5}, {Year: 1813, Seconds: 12.5}, {Year: 1814, Seconds: 12.5},
+// 		{Year: 1815, Seconds: 12.5}, {Year: 1816, Seconds: 12.5}, {Year: 1817, Seconds: 12.4}, {Year: 1818, Seconds: 12.3}, {Year: 1819, Seconds: 12.3},
+
+// 		{Year: 1820, Seconds: 12.0}, {Year: 1821, Seconds: 11.7}, {Year: 1822, Seconds: 11.4}, {Year: 1823, Seconds: 11.1}, {Year: 1824, Seconds: 10.6},
+// 		{Year: 1825, Seconds: 10.2}, {Year: 1826, Seconds: 9.6}, {Year: 1827, Seconds: 9.1}, {Year: 1828, Seconds: 8.6}, {Year: 1829, Seconds: 8.0},
+
+// 		{Year: 1830, Seconds: 7.5}, {Year: 1831, Seconds: 7.0}, {Year: 1832, Seconds: 6.6}, {Year: 1833, Seconds: 6.3}, {Year: 1834, Seconds: 6.0},
+// 		{Year: 1835, Seconds: 5.8}, {Year: 1836, Seconds: 5.7}, {Year: 1837, Seconds: 5.6}, {Year: 1838, Seconds: 5.6}, {Year: 1839, Seconds: 5.6},
+
+// 		{Year: 1840, Seconds: 5.7}, {Year: 1841, Seconds: 5.8}, {Year: 1842, Seconds: 5.9}, {Year: 1843, Seconds: 6.1}, {Year: 1844, Seconds: 6.2},
+// 		{Year: 1845, Seconds: 6.3}, {Year: 1846, Seconds: 6.5}, {Year: 1847, Seconds: 6.6}, {Year: 1848, Seconds: 6.8}, {Year: 1849, Seconds: 6.9},
+
+// 		{Year: 1850, Seconds: 7.1}, {Year: 1851, Seconds: 7.2}, {Year: 1852, Seconds: 7.3}, {Year: 1853, Seconds: 7.4}, {Year: 1854, Seconds: 7.5},
+// 		{Year: 1855, Seconds: 7.6}, {Year: 1856, Seconds: 7.7}, {Year: 1857, Seconds: 7.7}, {Year: 1858, Seconds: 7.8}, {Year: 1859, Seconds: 7.8},
+
+// 		{Year: 1860, Seconds: 7.88}, {Year: 1861, Seconds: 7.82}, {Year: 1862, Seconds: 7.54}, {Year: 1863, Seconds: 6.97}, {Year: 1864, Seconds: 6.40},
+// 		{Year: 1865, Seconds: 6.02}, {Year: 1866, Seconds: 5.41}, {Year: 1867, Seconds: 4.10}, {Year: 1868, Seconds: 2.92}, {Year: 1869, Seconds: 1.82},
+
+// 		{Year: 1870, Seconds: 1.61}, {Year: 1871, Seconds: 0.10}, {Year: 1872, Seconds: -1.02}, {Year: 1873, Seconds: -1.28}, {Year: 1874, Seconds: -2.69},
+// 		{Year: 1875, Seconds: -3.24}, {Year: 1876, Seconds: -3.64}, {Year: 1877, Seconds: -4.54}, {Year: 1878, Seconds: -4.71}, {Year: 1879, Seconds: -5.1},
+
+// 		{Year: 1880, Seconds: -5.40}, {Year: 1881, Seconds: -5.42}, {Year: 1882, Seconds: -5.20}, {Year: 1883, Seconds: -5.46}, {Year: 1884, Seconds: -5.46},
+// 		{Year: 1885, Seconds: -5.79}, {Year: 1886, Seconds: -5.63}, {Year: 1887, Seconds: -5.64}, {Year: 1888, Seconds: -5.80}, {Year: 1889, Seconds: -5.66},
+
+// 		{Year: 1890, Seconds: -5.87}, {Year: 1891, Seconds: -6.01}, {Year: 1892, Seconds: -6.19}, {Year: 1893, Seconds: -6.64}, {Year: 1894, Seconds: -6.44},
+// 		{Year: 1895, Seconds: -6.47}, {Year: 1896, Seconds: -6.09}, {Year: 1897, Seconds: -5.76}, {Year: 1898, Seconds: -4.66}, {Year: 1899, Seconds: -3.74},
+
+// 		{Year: 1900, Seconds: -2.72}, {Year: 1901, Seconds: -1.54}, {Year: 1902, Seconds: -0.02}, {Year: 1903, Seconds: 1.24}, {Year: 1904, Seconds: 2.64},
+// 		{Year: 1905, Seconds: 3.86}, {Year: 1906, Seconds: 5.37}, {Year: 1907, Seconds: 6.14}, {Year: 1908, Seconds: 7.75}, {Year: 1909, Seconds: 9.13},
+
+// 		{Year: 1910, Seconds: 10.46}, {Year: 1911, Seconds: 11.53}, {Year: 1912, Seconds: 13.36}, {Year: 1913, Seconds: 14.65}, {Year: 1914, Seconds: 16.01},
+// 		{Year: 1915, Seconds: 17.20}, {Year: 1916, Seconds: 18.24}, {Year: 1917, Seconds: 19.06}, {Year: 1918, Seconds: 20.25}, {Year: 1919, Seconds: 20.95},
+
+// 		{Year: 1920, Seconds: 21.16}, {Year: 1921, Seconds: 22.25}, {Year: 1922, Seconds: 22.41}, {Year: 1923, Seconds: 23.03}, {Year: 1924, Seconds: 23.49},
+// 		{Year: 1925, Seconds: 23.69}, {Year: 1926, Seconds: 23.86}, {Year: 1927, Seconds: 24.49}, {Year: 1928, Seconds: 24.34}, {Year: 1929, Seconds: 24.08},
+
+// 		{Year: 1930, Seconds: 24.02}, {Year: 1931, Seconds: 24.00}, {Year: 1932, Seconds: 23.87}, {Year: 1933, Seconds: 23.95}, {Year: 1934, Seconds: 23.86},
+// 		{Year: 1935, Seconds: 23.93}, {Year: 1936, Seconds: 23.73}, {Year: 1937, Seconds: 23.92}, {Year: 1938, Seconds: 23.96}, {Year: 1939, Seconds: 24.02},
+
+// 		{Year: 1940, Seconds: 24.33}, {Year: 1941, Seconds: 24.83}, {Year: 1942, Seconds: 25.30}, {Year: 1943, Seconds: 25.70}, {Year: 1944, Seconds: 26.24},
+// 		{Year: 1945, Seconds: 26.77}, {Year: 1946, Seconds: 27.28}, {Year: 1947, Seconds: 27.78}, {Year: 1948, Seconds: 28.25}, {Year: 1949, Seconds: 28.71},
+
+// 		{Year: 1950, Seconds: 29.15}, {Year: 1951, Seconds: 29.57}, {Year: 1952, Seconds: 29.97}, {Year: 1953, Seconds: 30.36}, {Year: 1954, Seconds: 30.72},
+// 		{Year: 1955, Seconds: 31.07}, {Year: 1956, Seconds: 31.35}, {Year: 1957, Seconds: 31.68}, {Year: 1958, Seconds: 32.18}, {Year: 1959, Seconds: 32.68},
+
+// 		{Year: 1960, Seconds: 33.15}, {Year: 1961, Seconds: 33.59}, {Year: 1962, Seconds: 34.00}, {Year: 1963, Seconds: 34.47}, {Year: 1964, Seconds: 35.03},
+// 		{Year: 1965, Seconds: 35.73}, {Year: 1966, Seconds: 36.54}, {Year: 1967, Seconds: 37.43}, {Year: 1968, Seconds: 38.29}, {Year: 1969, Seconds: 39.20},
+
+// 		{Year: 1970, Seconds: 40.18}, {Year: 1971, Seconds: 41.17}, {Year: 1972, Seconds: 42.23}, {Year: 1973, Seconds: 43.37}, {Year: 1974, Seconds: 44.49},
+// 		{Year: 1975, Seconds: 45.48}, {Year: 1976, Seconds: 46.46}, {Year: 1977, Seconds: 47.52}, {Year: 1978, Seconds: 48.53}, {Year: 1979, Seconds: 49.59},
+
+// 		{Year: 1980, Seconds: 50.54}, {Year: 1981, Seconds: 51.38}, {Year: 1982, Seconds: 52.17}, {Year: 1983, Seconds: 52.96}, {Year: 1984, Seconds: 53.79},
+// 		{Year: 1985, Seconds: 54.34}, {Year: 1986, Seconds: 54.87}, {Year: 1987, Seconds: 55.32}, {Year: 1988, Seconds: 55.82}, {Year: 1989, Seconds: 56.30},
+
+// 		{Year: 1990, Seconds: 56.86}, {Year: 1991, Seconds: 57.57}, {Year: 1992, Seconds: 58.31}, {Year: 1993, Seconds: 59.12}, {Year: 1994, Seconds: 59.99},
+// 		{Year: 1995, Seconds: 60.78}, {Year: 1996, Seconds: 61.63}, {Year: 1997, Seconds: 62.30}, {Year: 1998, Seconds: 62.97}, {Year: 1999, Seconds: 63.47},
+
+// 		{Year: 2000, Seconds: 63.83}, {Year: 2001, Seconds: 64.09}, {Year: 2002, Seconds: 64.30}, {Year: 2003, Seconds: 64.47}, {Year: 2004, Seconds: 64.57},
+// 		{Year: 2005, Seconds: 64.69}, {Year: 2006, Seconds: 64.85}, {Year: 2007, Seconds: 65.15}, {Year: 2008, Seconds: 65.46}, {Year: 2009, Seconds: 65.78},
+
+// 		{Year: 2010, Seconds: 66.07}, {Year: 2011, Seconds: 66.32}, {Year: 2012, Seconds: 66.60}, {Year: 2013, Seconds: 66.91}, {Year: 2014, Seconds: 67.28},
+// 		{Year: 2015, Seconds: 67.18}, {Year: 2016, Seconds: 68.18}, {Year: 2017, Seconds: 69.18}, {Year: 2018, Seconds: 69.18}, {Year: 2019, Seconds: 69.18},
+// 		{Year: 2020, Seconds: 69.18},
+// 	}
+
+// 	dt.FirstYear = dt.Table[0].Year
+// 	dt.LastYear = dt.Table[len(dt.Table)-1].Year
+// 	return &dt
+
+// }
